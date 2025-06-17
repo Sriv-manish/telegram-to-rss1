@@ -4,10 +4,10 @@ services:
     container_name: telegram-to-rss
     restart: always
     environment:
-      - TG_API_ID=REPLACE_ME
-      - TG_API_HASH=REPLACE_ME
-      - TG_PASSWORD=REPLACE_ME
-      - BASE_URL=REPLACE_ME
+      - TG_API_ID=26856585
+      - TG_API_HASH=bd9ef05161a15dfa61c453fb16ff4171
+      - TG_PASSWORD='Manu123$'
+      - BASE_URL=Https://t.me/Srivmanish_RSSfeed/
     ports:
       - 3042:3042
     volumes:
