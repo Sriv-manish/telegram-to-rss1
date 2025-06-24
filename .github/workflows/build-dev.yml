@@ -32,10 +32,23 @@ jobs:
           push: true
           tags: srivmanish/telegram-to-rss1:dev
           platforms: linux/amd64,linux/arm64
-      - name: Run container (optional)
+      #added below
+      - name: Run container
         run: |
-          docker run --rm -d \
-            -e DATA_DIR=/data \
-            -e BIND=0.0.0.0:3042 \
+          docker run -d --name telegram_test \
+            -e TG_API_ID=123456 \
+            -e TG_API_HASH=abcdef1234567890abcdef1234567890 \
+            -e BASE_URL=https://example.com \
             -p 3042:3042 \
             srivmanish/telegram-to-rss1:dev
+
+      - name: Wait for container to be ready
+        run: sleep 10
+
+      - name: Check if service is responding
+        run: |
+          curl -f http://localhost:3042 || (echo "Service failed to respond" && exit 1)
+
+      - name: Cleanup container
+        if: always()
+        run: docker rm -f telegram_test
